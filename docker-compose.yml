@@ -1,0 +1,96 @@
+version: "3.8"
+
+# =============================================================================
+# NYC Taxi ETL Pipeline — Docker Compose
+# Starts: PostgreSQL + Airflow (webserver, scheduler, worker)
+# =============================================================================
+
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.9.1-python3.11
+  environment: &airflow-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: ""
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth
+    POSTGRES_CONN_STR: postgresql+psycopg2://taxi_user:taxi_pass@postgres:5432/taxi_db
+    RAW_DATA_DIR: /opt/airflow/data/raw
+    PROCESSED_DATA_DIR: /opt/airflow/data/processed
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./src:/opt/airflow/src
+    - ./sql:/opt/airflow/sql
+    - ./logs:/opt/airflow/logs
+    - ./data:/opt/airflow/data
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — serves both Airflow metadata and the taxi data warehouse
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+
+  # ---------------------------------------------------------------------------
+  # Airflow init — runs migrations and creates the admin user on first start
+  # ---------------------------------------------------------------------------
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        pip install --quiet -r /opt/airflow/src/../requirements.txt
+        airflow db migrate
+        airflow users create \
+          --username admin \
+          --password admin \
+          --firstname Jagadeesh \
+          --lastname Ch \
+          --role Admin \
+          --email jagadeeshchodaboina@gmail.com
+    restart: "no"
+
+  # ---------------------------------------------------------------------------
+  # Airflow webserver — UI at http://localhost:8080
+  # ---------------------------------------------------------------------------
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: always
+
+  # ---------------------------------------------------------------------------
+  # Airflow scheduler — triggers DAG runs on schedule
+  # ---------------------------------------------------------------------------
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+
+volumes:
+  postgres_data:

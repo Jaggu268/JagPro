@@ -1,0 +1,29 @@
+# Environment
+.env
+*.env
+
+# Data files (too large for git)
+data/
+*.parquet
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Airflow
+logs/
+airflow.db
+airflow.cfg
+
+# IDEs
+.vscode/
+.idea/
+*.swp
