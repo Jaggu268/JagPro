@@ -1,6 +1,6 @@
 # 🚕 NYC Yellow Taxi — End-to-End ETL Pipeline
 
-> Built by **Jagadeesh Ch** · Master's Student in Data Science @ University of Central Missouri  
+> Built by **Jagadeesh Ch** · MS Computer Science, University of Central Missouri (2025)  
 > 📧 jagadeeshchodaboina@gmail.com · [GitHub](https://github.com/Jaggu268)  
 > 🎯 Seeking full-time roles in **Data Engineering** and **Data Science**
 
@@ -65,7 +65,7 @@ nyc-taxi-pipeline/
 │   ├── create_tables.sql       # Fact + dimension DDL
 │   └── create_analytics_views.sql  # Pre-aggregated views
 ├── tests/
-│   └── test_transform.py       # 18 unit tests for transform logic
+│   └── test_transform.py       # 21 unit tests for transform logic
 ├── scripts/
 │   └── init_db.sql             # One-time DB/user setup
 ├── docker-compose.yml          # Full stack: PG + Airflow
@@ -204,7 +204,7 @@ https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
 
 ## About Me
 
-I'm **Jagadeesh Ch**, a Master's student in Data Science at the **University of Central Missouri**, passionate about building scalable data systems and turning raw data into actionable insights.
+I'm **Jagadeesh Ch**, a Computer Science graduate (MS, University of Central Missouri, 2025), passionate about building scalable data systems and turning raw data into actionable insights.
 
 This project is part of my portfolio showcasing hands-on data engineering skills. I'm actively seeking full-time opportunities in **Data Engineering** and **Data Science** where I can contribute to real-world data infrastructure and analytics.
 
