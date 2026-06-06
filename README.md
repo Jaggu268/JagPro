@@ -1,6 +1,14 @@
 # 🚕 NYC Yellow Taxi — End-to-End ETL Pipeline
 
+> Built by **Jagadeesh Ch** · Master's Student in Data Science @ University of Central Missouri  
+> 📧 jagadeeshchodaboina@gmail.com · [GitHub](https://github.com/Jaggu268)  
+> 🎯 Seeking full-time roles in **Data Engineering** and **Data Science**
+
+---
+
 A production-style data engineering pipeline that ingests, transforms, and warehouses **NYC Yellow Taxi trip data** (40M+ rows/year) using Apache Airflow, PostgreSQL, and Docker.
+
+This project demonstrates hands-on experience building real-world data pipelines — from raw public data ingestion to a queryable analytics warehouse — using the same tools and patterns used at companies like Uber, Lyft, and Airbnb.
 
 ---
 
@@ -194,6 +202,18 @@ https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
 
 ---
 
-## Author
+## About Me
 
-**Jagadeesh Ch** · [GitHub](https://github.com/Jaggu268) · jagadeeshchodaboina@gmail.com
+I'm **Jagadeesh Ch**, a Master's student in Data Science at the **University of Central Missouri**, passionate about building scalable data systems and turning raw data into actionable insights.
+
+This project is part of my portfolio showcasing hands-on data engineering skills. I'm actively seeking full-time opportunities in **Data Engineering** and **Data Science** where I can contribute to real-world data infrastructure and analytics.
+
+**Skills:** Python · SQL · Apache Airflow · Apache Spark · PostgreSQL · Docker · pandas · NumPy · Machine Learning · ETL Pipeline Design
+
+**Connect with me:**  
+📧 jagadeeshchodaboina@gmail.com  
+🐙 [github.com/Jaggu268](https://github.com/Jaggu268)
+
+---
+
+*If you're a recruiter or hiring manager — feel free to reach out! I'm open to Data Engineer, Data Scientist, and Analytics Engineer roles.*
